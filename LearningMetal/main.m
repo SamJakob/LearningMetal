@@ -5,7 +5,6 @@
 //  Created by Sam M. on 2/26/22.
 //
 
-#import <Cocoa/Cocoa.h>
 #import <Metal/Metal.h>
 
 #import "GPUExecutor.h"
@@ -73,117 +72,6 @@ int main(int argc, const char* argv[]) {
             }
         }
         NSLog(@"Results computed as expected.");
-    }
-    
-    return 0;
-    
-}
-
-
-// Here's an alternative example that does not use GPUExecutor.
-// Based on the Apple Metal tutorial: https://developer.apple.com/documentation/metal/basic_tasks_and_concepts/performing_calculations_on_a_gpu?preferredLanguage=occ
-int _main(int argc, const char * argv[]) {
-    
-    @autoreleasepool {
-        ///
-        /// Stage 1
-        ///
-        
-        // Setup code that might create autoreleased objects goes here.
-        id<MTLDevice> device = MTLCreateSystemDefaultDevice();
-        
-        NSError* error = nil;
-        
-        // Attempt to load the default library.
-        id<MTLLibrary> defaultLibrary = [device newDefaultLibrary];
-        if (defaultLibrary == nil) {
-            NSLog(@"Failed to locate default library.");
-            return 1;
-        }
-        
-        // Get adder function.
-        id<MTLFunction> gpuAddFunction = [defaultLibrary newFunctionWithName:@"add_arrays"];
-        if (gpuAddFunction == nil) {
-            NSLog(@"Failed to locate adder function.");
-            return 1;
-        }
-        
-        ///
-        /// Stage 2
-        ///
-        
-        // Now, prepare a Metal pipeline.
-        id <MTLComputePipelineState> pipeline = [device newComputePipelineStateWithFunction:gpuAddFunction error:&error];
-        
-        // Create a command queue.
-        id<MTLCommandQueue> commandQueue = [device newCommandQueue];
-        id<MTLCommandBuffer> commandBuffer = [commandQueue commandBuffer];
-        id<MTLComputeCommandEncoder> computeEncoder = [commandBuffer computeCommandEncoder];
-        
-        // Create data buffers (alloc) and load data.
-        int arrayLength = 1 << 12;
-        id<MTLBuffer> bufferA = [device newBufferWithLength:(arrayLength * sizeof(float)) options:MTLResourceStorageModeShared];
-        id<MTLBuffer> bufferB = [device newBufferWithLength:(arrayLength * sizeof(float)) options:MTLResourceStorageModeShared];
-        id<MTLBuffer> bufferResult = [device newBufferWithLength:(arrayLength * sizeof(float)) options:MTLResourceStorageModeShared];
-        
-        generateRandomData(bufferA);
-        generateRandomData(bufferB);
-        
-        // Set compute pipeline state and buffers.
-        [computeEncoder setComputePipelineState:pipeline];
-        [computeEncoder setBuffer:bufferA offset:0 atIndex:0];
-        [computeEncoder setBuffer:bufferB offset:0 atIndex:1];
-        [computeEncoder setBuffer:bufferResult offset:0 atIndex:2];
-        
-        ///
-        /// Stage 3
-        ///
-        
-        // Set thread count and organization.
-        MTLSize gridSize = MTLSizeMake(arrayLength, 1, 1);
-        
-        // Specify the size of the thread group.
-        NSUInteger initialThreadGroupSize = [pipeline maxTotalThreadsPerThreadgroup];
-        if (initialThreadGroupSize > arrayLength) initialThreadGroupSize = arrayLength;
-        MTLSize threadGroupSize = MTLSizeMake(initialThreadGroupSize, 1, 1);
-        
-        // Encode the compute function to execute threads.
-        [computeEncoder dispatchThreads:gridSize threadsPerThreadgroup:threadGroupSize];
-        
-        // End the compute pass and commit the buffer.
-        [computeEncoder endEncoding];
-        [commandBuffer commit];
-        
-        NSLog(@"GPU calculation start");
-        
-        // Wait for completion (alternatively, one can add a completion handler).
-        [commandBuffer waitUntilCompleted];
-        
-        NSLog(@"GPU calculation done");
-        
-        ///
-        /// Stage 4
-        ///
-        
-        // Read the results from the GPU buffer and verify them.
-        NSLog(@"CPU calculation start");
-        
-        float* a = [bufferA contents];
-        float* b = [bufferB contents];
-        float* result = [bufferResult contents];
-        
-        for (unsigned long index = 0; index < arrayLength; index++) {
-            if (result[index] != a[index] + b[index]) {
-                printf("COMPUTE ERROR: index=%lu, result=%g vs %g=a+b\n", index, result[index], a[index] + b[index]);
-                assert(result[index] == a[index] + b[index]);
-            }
-        }
-        
-        NSLog(@"CPU calculation done");
-        
-        printf("%d\n", arrayLength);
-        
-        printf("Results computed as expected.\n");
     }
     
     return 0;

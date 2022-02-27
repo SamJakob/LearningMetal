@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		39A4D62627CA5A1900D28228 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 39A4D62527CA5A1900D28228 /* AppDelegate.m */; };
-		39A4D62927CA5A1900D28228 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 39A4D62827CA5A1900D28228 /* ViewController.m */; };
-		39A4D62B27CA5A1A00D28228 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 39A4D62A27CA5A1A00D28228 /* Assets.xcassets */; };
-		39A4D62E27CA5A1A00D28228 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39A4D62C27CA5A1A00D28228 /* Main.storyboard */; };
 		39A4D63027CA5A1A00D28228 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 39A4D62F27CA5A1A00D28228 /* main.m */; };
 		39A4D63927CA5AA100D28228 /* ArrayAddition.metal in Sources */ = {isa = PBXBuildFile; fileRef = 39A4D63827CA5AA100D28228 /* ArrayAddition.metal */; };
 		39A4D63C27CB83FC00D28228 /* GPUExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = 39A4D63B27CB83FC00D28228 /* GPUExecutor.m */; };
@@ -18,12 +14,6 @@
 
 /* Begin PBXFileReference section */
 		39A4D62127CA5A1900D28228 /* LearningMetal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearningMetal.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		39A4D62427CA5A1900D28228 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		39A4D62527CA5A1900D28228 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		39A4D62727CA5A1900D28228 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		39A4D62827CA5A1900D28228 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		39A4D62A27CA5A1A00D28228 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		39A4D62D27CA5A1A00D28228 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		39A4D62F27CA5A1A00D28228 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		39A4D63127CA5A1A00D28228 /* LearningMetal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LearningMetal.entitlements; sourceTree = "<group>"; };
 		39A4D63827CA5AA100D28228 /* ArrayAddition.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = ArrayAddition.metal; sourceTree = "<group>"; };
@@ -62,8 +52,8 @@
 		39A4D62327CA5A1900D28228 /* LearningMetal */ = {
 			isa = PBXGroup;
 			children = (
-				39A4D63E27CB842B00D28228 /* Utilities */,
 				39A4D63727CA5A8C00D28228 /* App */,
+				39A4D63E27CB842B00D28228 /* Utilities */,
 				39A4D62F27CA5A1A00D28228 /* main.m */,
 				39A4D63127CA5A1A00D28228 /* LearningMetal.entitlements */,
 				39A4D63827CA5AA100D28228 /* ArrayAddition.metal */,
@@ -75,12 +65,6 @@
 			isa = PBXGroup;
 			children = (
 				39A4D63A27CA8B7300D28228 /* Info.plist */,
-				39A4D62C27CA5A1A00D28228 /* Main.storyboard */,
-				39A4D62427CA5A1900D28228 /* AppDelegate.h */,
-				39A4D62527CA5A1900D28228 /* AppDelegate.m */,
-				39A4D62727CA5A1900D28228 /* ViewController.h */,
-				39A4D62827CA5A1900D28228 /* ViewController.m */,
-				39A4D62A27CA5A1A00D28228 /* Assets.xcassets */,
 			);
 			name = App;
 			sourceTree = "<group>";
@@ -151,8 +135,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				39A4D62B27CA5A1A00D28228 /* Assets.xcassets in Resources */,
-				39A4D62E27CA5A1A00D28228 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,26 +145,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				39A4D62927CA5A1900D28228 /* ViewController.m in Sources */,
 				39A4D63C27CB83FC00D28228 /* GPUExecutor.m in Sources */,
 				39A4D63027CA5A1A00D28228 /* main.m in Sources */,
-				39A4D62627CA5A1900D28228 /* AppDelegate.m in Sources */,
 				39A4D63927CA5AA100D28228 /* ArrayAddition.metal in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		39A4D62C27CA5A1A00D28228 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				39A4D62D27CA5A1A00D28228 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		39A4D63227CA5A1A00D28228 /* Debug */ = {
