@@ -20,8 +20,9 @@ int main(int argc, const char* argv[]) {
         GPUExecutor* executor = [GPUExecutor new];
         assert(executor != nil);
         
-        // The size (in bytes) of the array to populate. 1 << 12 = ~1 million bytes.
-        int arrayLength = 1 << 12;
+        // The size of the array to populate. [1 << 20 = ~1 million].
+        // In this case, it will be the number of floats in the array, because we multiply by sizeof(float) when allocating the buffer.
+        int arrayLength = (1 << 20);
         
         // Compute the grid and thread size.
         MTLSize maxThreadsPerThreadGroup = [[executor device] maxThreadsPerThreadgroup]; // Determine the maxThreadsPerThreadgroup by checking this property on the device.
@@ -84,6 +85,7 @@ int main(int argc, const char* argv[]) {
             }
         }
         NSLog(@"Results computed as expected.");
+        
     }
     
     return 0;
