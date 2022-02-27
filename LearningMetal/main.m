@@ -21,56 +21,60 @@ void generateRandomData(id<MTLBuffer> buffer) {
 
 int main(int argc, const char* argv[]) {
     
-    NSError* error = nil;
     
-    // Compute the grid and thread size.
-    int arrayLength = 1 << 12;
-    MTLSize gridSize = MTLSizeMake(arrayLength, 1, 1);
-    MTLSize threadGroupSize = MTLSizeMake(arrayLength, 1, 1); // number of threads per thread group.
-    
-    __block id<MTLBuffer> bufferA, bufferB, bufferResult;
-    
-    // Run the add_arrays kernel from the default Metal library.
-    GPUExecutor* executor = [[GPUExecutor alloc] init];
-    id<MTLCommandBuffer> commandBuffer = [executor exec:@"add_arrays" error:&error gridSize:gridSize threadGroupSize:threadGroupSize prepare:^(id<MTLComputeCommandEncoder> computeEncoder) {
+    @autoreleasepool {
+        NSError* error = nil;
         
-        // Obtain the device from the compute encoder.
-        id<MTLDevice> device = [computeEncoder device];
+        // Compute the grid and thread size.
+        int arrayLength = 1 << 12;
+        MTLSize gridSize = MTLSizeMake(arrayLength, 1, 1);
+        MTLSize threadGroupSize = MTLSizeMake(arrayLength, 1, 1); // number of threads per thread group.
         
-        // Create the buffers.
-        bufferA = [device newBufferWithLength:(arrayLength * sizeof(float)) options:MTLResourceStorageModeShared];
-        bufferB = [device newBufferWithLength:(arrayLength * sizeof(float)) options:MTLResourceStorageModeShared];
-        bufferResult = [device newBufferWithLength:(arrayLength * sizeof(float)) options:MTLResourceStorageModeShared];
+        __block id<MTLBuffer> bufferA, bufferB, bufferResult;
         
-        // Fill bufferA and bufferB with random data.
-        generateRandomData(bufferA);
-        generateRandomData(bufferB);
+        // Run the add_arrays kernel from the default Metal library.
+        GPUExecutor* executor = [GPUExecutor new];
+        id<MTLCommandBuffer> commandBuffer = [executor exec:@"add_arrays" error:&error gridSize:gridSize threadGroupSize:threadGroupSize prepare:^(id<MTLComputeCommandEncoder> computeEncoder) {
+            
+            // Obtain the device from the compute encoder.
+            id<MTLDevice> device = [computeEncoder device];
+            
+            // Create the buffers.
+            bufferA = [device newBufferWithLength:(arrayLength * sizeof(float)) options:MTLResourceStorageModeShared];
+            bufferB = [device newBufferWithLength:(arrayLength * sizeof(float)) options:MTLResourceStorageModeShared];
+            bufferResult = [device newBufferWithLength:(arrayLength * sizeof(float)) options:MTLResourceStorageModeShared];
+            
+            // Fill bufferA and bufferB with random data.
+            generateRandomData(bufferA);
+            generateRandomData(bufferB);
+            
+            // Set compute buffers.
+            [computeEncoder setBuffer:bufferA offset:0 atIndex:0];
+            [computeEncoder setBuffer:bufferB offset:0 atIndex:1];
+            [computeEncoder setBuffer:bufferResult offset:0 atIndex:2];
+            
+        }];
         
-        // Set compute buffers.
-        [computeEncoder setBuffer:bufferA offset:0 atIndex:0];
-        [computeEncoder setBuffer:bufferB offset:0 atIndex:1];
-        [computeEncoder setBuffer:bufferResult offset:0 atIndex:2];
+        [commandBuffer waitUntilCompleted];
         
-    }];
-    
-    [commandBuffer waitUntilCompleted];
-    
-    ///
-    /// Now check the output.
-    ///
-    
-    // Read the results from the GPU buffer and verify them.
-    float* a = [bufferA contents];
-    float* b = [bufferB contents];
-    float* result = [bufferResult contents];
-    
-    for (unsigned long index = 0; index < arrayLength; index++) {
-        if (result[index] != a[index] + b[index]) {
-            printf("COMPUTE ERROR: index=%lu, result=%g vs %g=a+b\n", index, result[index], a[index] + b[index]);
-            assert(result[index] == a[index] + b[index]);
+        ///
+        /// Now check the output.
+        ///
+        
+        // Read the results from the GPU buffer and verify them.
+        float* a = [bufferA contents];
+        float* b = [bufferB contents];
+        float* result = [bufferResult contents];
+        
+        for (unsigned long index = 0; index < arrayLength; index++) {
+            if (result[index] != a[index] + b[index]) {
+                printf("COMPUTE ERROR: index=%lu, result=%g vs %g=a+b\n", index, result[index], a[index] + b[index]);
+                assert(result[index] == a[index] + b[index]);
+            }
         }
+        NSLog(@"Results computed as expected.");
     }
-    NSLog(@"Results computed as expected.");
+    
     return 0;
     
 }
@@ -78,7 +82,7 @@ int main(int argc, const char* argv[]) {
 
 // Here's an alternative example that does not use GPUExecutor.
 // Based on the Apple Metal tutorial: https://developer.apple.com/documentation/metal/basic_tasks_and_concepts/performing_calculations_on_a_gpu?preferredLanguage=occ
-int mainAdderExample(int argc, const char * argv[]) {
+int _main(int argc, const char * argv[]) {
     
     @autoreleasepool {
         ///
@@ -117,7 +121,7 @@ int mainAdderExample(int argc, const char * argv[]) {
         id<MTLComputeCommandEncoder> computeEncoder = [commandBuffer computeCommandEncoder];
         
         // Create data buffers (alloc) and load data.
-        int arrayLength = 1 << 28;
+        int arrayLength = 1 << 12;
         id<MTLBuffer> bufferA = [device newBufferWithLength:(arrayLength * sizeof(float)) options:MTLResourceStorageModeShared];
         id<MTLBuffer> bufferB = [device newBufferWithLength:(arrayLength * sizeof(float)) options:MTLResourceStorageModeShared];
         id<MTLBuffer> bufferResult = [device newBufferWithLength:(arrayLength * sizeof(float)) options:MTLResourceStorageModeShared];
