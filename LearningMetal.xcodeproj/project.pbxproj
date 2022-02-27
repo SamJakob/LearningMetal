@@ -10,6 +10,8 @@
 		39A4D63027CA5A1A00D28228 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 39A4D62F27CA5A1A00D28228 /* main.m */; };
 		39A4D63927CA5AA100D28228 /* ArrayAddition.metal in Sources */ = {isa = PBXBuildFile; fileRef = 39A4D63827CA5AA100D28228 /* ArrayAddition.metal */; };
 		39A4D63C27CB83FC00D28228 /* GPUExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = 39A4D63B27CB83FC00D28228 /* GPUExecutor.m */; };
+		39A4D64B27CBB5D500D28228 /* DemoUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 39A4D64A27CBB5D500D28228 /* DemoUtilities.m */; };
+		39A4D65027CBB9E100D28228 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 39A4D64F27CBB9E100D28228 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +22,9 @@
 		39A4D63A27CA8B7300D28228 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		39A4D63B27CB83FC00D28228 /* GPUExecutor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GPUExecutor.m; sourceTree = "<group>"; };
 		39A4D63D27CB840F00D28228 /* GPUExecutor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPUExecutor.h; sourceTree = "<group>"; };
+		39A4D64A27CBB5D500D28228 /* DemoUtilities.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoUtilities.m; sourceTree = "<group>"; };
+		39A4D64D27CBB60B00D28228 /* DemoUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemoUtilities.h; sourceTree = "<group>"; };
+		39A4D64F27CBB9E100D28228 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,10 +58,11 @@
 			isa = PBXGroup;
 			children = (
 				39A4D63727CA5A8C00D28228 /* App */,
-				39A4D63E27CB842B00D28228 /* Utilities */,
+				39A4D64C27CBB5EF00D28228 /* Metal */,
+				39A4D64627CBAF6300D28228 /* GPUExecutor */,
+				39A4D64E27CBB87200D28228 /* Utilities */,
 				39A4D62F27CA5A1A00D28228 /* main.m */,
-				39A4D63127CA5A1A00D28228 /* LearningMetal.entitlements */,
-				39A4D63827CA5AA100D28228 /* ArrayAddition.metal */,
+				39A4D64F27CBB9E100D28228 /* README.md */,
 			);
 			path = LearningMetal;
 			sourceTree = "<group>";
@@ -65,17 +71,35 @@
 			isa = PBXGroup;
 			children = (
 				39A4D63A27CA8B7300D28228 /* Info.plist */,
+				39A4D63127CA5A1A00D28228 /* LearningMetal.entitlements */,
 			);
 			name = App;
 			sourceTree = "<group>";
 		};
-		39A4D63E27CB842B00D28228 /* Utilities */ = {
+		39A4D64627CBAF6300D28228 /* GPUExecutor */ = {
 			isa = PBXGroup;
 			children = (
-				39A4D63B27CB83FC00D28228 /* GPUExecutor.m */,
 				39A4D63D27CB840F00D28228 /* GPUExecutor.h */,
+				39A4D63B27CB83FC00D28228 /* GPUExecutor.m */,
 			);
-			name = Utilities;
+			path = GPUExecutor;
+			sourceTree = "<group>";
+		};
+		39A4D64C27CBB5EF00D28228 /* Metal */ = {
+			isa = PBXGroup;
+			children = (
+				39A4D63827CA5AA100D28228 /* ArrayAddition.metal */,
+			);
+			path = Metal;
+			sourceTree = "<group>";
+		};
+		39A4D64E27CBB87200D28228 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				39A4D64D27CBB60B00D28228 /* DemoUtilities.h */,
+				39A4D64A27CBB5D500D28228 /* DemoUtilities.m */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,6 +159,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39A4D65027CBB9E100D28228 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,6 +173,7 @@
 				39A4D63C27CB83FC00D28228 /* GPUExecutor.m in Sources */,
 				39A4D63027CA5A1A00D28228 /* main.m in Sources */,
 				39A4D63927CA5AA100D28228 /* ArrayAddition.metal in Sources */,
+				39A4D64B27CBB5D500D28228 /* DemoUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,7 +294,6 @@
 		39A4D63527CA5A1A00D28228 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = LearningMetal/LearningMetal.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -295,7 +320,6 @@
 		39A4D63627CA5A1A00D28228 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = LearningMetal/LearningMetal.entitlements;
 				CODE_SIGN_STYLE = Automatic;

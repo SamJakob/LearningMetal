@@ -9,7 +9,7 @@
 
 #pragma once
 
-#define EXECUTOR_ERROR_DOMAIN @"com.samjakob.gpuExecutor"
+#define EXECUTOR_ERROR_DOMAIN @"com.samjakob.gpuexecutor"
 
 @interface GPUExecutor : NSObject
 
@@ -18,6 +18,9 @@
 
 -(instancetype) init;
 -(instancetype) init:(id<MTLLibrary>) library;
+
+-(id<MTLLibrary>) library;
+-(id<MTLDevice>) device;
 
 -(id<MTLCommandBuffer>) exec:(NSString*) kernelName error:(__autoreleasing NSError**) error gridSize:(MTLSize) gridSize threadGroupSize:(MTLSize) threadGroupSize;
 -(id<MTLCommandBuffer>) exec:(NSString*) kernelName error:(__autoreleasing NSError**) error gridSize:(MTLSize) gridSize threadGroupSize:(MTLSize) threadGroupSize prepare:(void(^)(id<MTLComputeCommandEncoder>)) prepare;

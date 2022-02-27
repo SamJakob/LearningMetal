@@ -46,7 +46,7 @@ static id<MTLLibrary> _defaultMetalLibrary = nil;
                 // Now that we've attempted to create one with system defaults, ensure that it
                 // does exist.
                 if (_defaultMetalDevice == nil) {
-                    NSLog(@"Failed to locate default Metal device.");
+                    NSLog(@"Failed to locate default Metal device, and the library was not set.");
                     return nil;
                 }
                 
@@ -55,10 +55,12 @@ static id<MTLLibrary> _defaultMetalLibrary = nil;
             }
         }
         
-        // Now that the library should have been either specified or set, ensure that it is, in
-        // fact, set.
-        if (library == nil) {
-            NSLog(@"An invalid library was specified and the default library could not be located.");
+        // Ensure that the library has a valid device.
+        if ([library device] == nil) {
+            // 'from the specified library' => we already checked if we could load the system device, which is what
+            // would be used if the user had *not* specified a library. Hence, if the device could not be located at
+            // this point, it had to be a bad device from the user's own specified library.
+            NSLog(@"Failed to locate the Metal device from the specified library.");
             return nil;
         }
         
@@ -70,17 +72,35 @@ static id<MTLLibrary> _defaultMetalLibrary = nil;
     return self;
 }
 
+-(id<MTLLibrary>) library {
+    return _library;
+}
+
+-(id<MTLDevice>) device {
+    return [_library device];
+}
+
 -(id<MTLCommandBuffer>) exec:(NSString *)kernelName error:(__autoreleasing NSError**) error gridSize:(MTLSize) gridSize threadGroupSize:(MTLSize) threadGroupSize {
     return [self exec:kernelName error:error gridSize:gridSize threadGroupSize:threadGroupSize prepare:nil];
 }
 
 -(id<MTLCommandBuffer>) exec:(NSString *)kernelName error:(__autoreleasing NSError**) error gridSize:(MTLSize) gridSize threadGroupSize:(MTLSize) threadGroupSize prepare:(void(^)(id<MTLComputeCommandEncoder>)) prepare {
     
+    // Now that the library should have been either specified or set, ensure that it is, in
+    // fact, set.
+    if (_library == nil) {
+        *error = [[NSError alloc] initWithDomain:EXECUTOR_ERROR_DOMAIN code:1000 userInfo:@{
+            @"message": @"An invalid library was specified and the default library could not be located."
+        }];
+        return nil;
+    }
+    
     // Locate the specified kernel.
     id<MTLFunction> kernel = [_library newFunctionWithName:kernelName];
     if (kernel == nil) {
-        *error = [[NSError alloc] initWithDomain:EXECUTOR_ERROR_DOMAIN code:1 userInfo:nil];
-        NSLog(@"Failed to locate the specified kernel, `%@`.", kernelName);
+        *error = [[NSError alloc] initWithDomain:EXECUTOR_ERROR_DOMAIN code:2000 userInfo:@{
+            @"message": [NSString stringWithFormat:@"The specified kernel function, `%@`, was not found in the default Metal library.", kernelName]
+        }];
         return nil;
     }
     
@@ -101,13 +121,10 @@ static id<MTLLibrary> _defaultMetalLibrary = nil;
     // Pass control to an input block which can prepare buffers for the compute encoder.
     if (prepare != nil) prepare(computeEncoder);
     
-    // Set thread count and organization, end the compute pass and commit the buffer.
-    MTLSize _threadGroupSize = MTLSizeMake(
-       MIN(threadGroupSize.width, [pipelineState maxTotalThreadsPerThreadgroup]),
-       MIN(threadGroupSize.height, [pipelineState maxTotalThreadsPerThreadgroup]),
-       MIN(threadGroupSize.depth, [pipelineState maxTotalThreadsPerThreadgroup])
-    );
-    [computeEncoder dispatchThreads:gridSize threadsPerThreadgroup:_threadGroupSize];
+    // Set thread count and organization.
+    [computeEncoder dispatchThreads:gridSize threadsPerThreadgroup:threadGroupSize];
+    
+    // End the compute pass and commit the buffer.
     [computeEncoder endEncoding];
     [commandBuffer commit];
     
