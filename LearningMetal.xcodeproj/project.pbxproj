@@ -7,14 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		393947A327DA67660010902D /* Scan.m in Sources */ = {isa = PBXBuildFile; fileRef = 393947A227DA67660010902D /* Scan.m */; };
+		393947A527DA68E30010902D /* Scan.metal in Sources */ = {isa = PBXBuildFile; fileRef = 393947A427DA68E30010902D /* Scan.metal */; };
 		39A4D63027CA5A1A00D28228 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 39A4D62F27CA5A1A00D28228 /* main.m */; };
 		39A4D63927CA5AA100D28228 /* ArrayAddition.metal in Sources */ = {isa = PBXBuildFile; fileRef = 39A4D63827CA5AA100D28228 /* ArrayAddition.metal */; };
 		39A4D63C27CB83FC00D28228 /* GPUExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = 39A4D63B27CB83FC00D28228 /* GPUExecutor.m */; };
 		39A4D64B27CBB5D500D28228 /* DemoUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 39A4D64A27CBB5D500D28228 /* DemoUtilities.m */; };
 		39A4D65027CBB9E100D28228 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 39A4D64F27CBB9E100D28228 /* README.md */; };
+		39A4D65427CBE62F00D28228 /* ArrayAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 39A4D65327CBE62F00D28228 /* ArrayAddition.m */; };
+		39A4D65727CBE8E400D28228 /* MatrixMultiplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 39A4D65627CBE8E300D28228 /* MatrixMultiplication.m */; };
+		39A4D65927CC200100D28228 /* MatrixMultiplication.metal in Sources */ = {isa = PBXBuildFile; fileRef = 39A4D65827CC200100D28228 /* MatrixMultiplication.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		393947A127DA67560010902D /* Scan.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Scan.h; sourceTree = "<group>"; };
+		393947A227DA67660010902D /* Scan.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Scan.m; sourceTree = "<group>"; };
+		393947A427DA68E30010902D /* Scan.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Scan.metal; sourceTree = "<group>"; };
 		39A4D62127CA5A1900D28228 /* LearningMetal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearningMetal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		39A4D62F27CA5A1A00D28228 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		39A4D63127CA5A1A00D28228 /* LearningMetal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LearningMetal.entitlements; sourceTree = "<group>"; };
@@ -25,6 +33,11 @@
 		39A4D64A27CBB5D500D28228 /* DemoUtilities.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoUtilities.m; sourceTree = "<group>"; };
 		39A4D64D27CBB60B00D28228 /* DemoUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemoUtilities.h; sourceTree = "<group>"; };
 		39A4D64F27CBB9E100D28228 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		39A4D65227CBE62500D28228 /* ArrayAddition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArrayAddition.h; sourceTree = "<group>"; };
+		39A4D65327CBE62F00D28228 /* ArrayAddition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArrayAddition.m; sourceTree = "<group>"; };
+		39A4D65527CBE8D900D28228 /* MatrixMultiplication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MatrixMultiplication.h; sourceTree = "<group>"; };
+		39A4D65627CBE8E300D28228 /* MatrixMultiplication.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MatrixMultiplication.m; sourceTree = "<group>"; };
+		39A4D65827CC200100D28228 /* MatrixMultiplication.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = MatrixMultiplication.metal; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +71,7 @@
 			isa = PBXGroup;
 			children = (
 				39A4D63727CA5A8C00D28228 /* App */,
+				39A4D65127CBE60E00D28228 /* ObjC */,
 				39A4D64C27CBB5EF00D28228 /* Metal */,
 				39A4D64627CBAF6300D28228 /* GPUExecutor */,
 				39A4D64E27CBB87200D28228 /* Utilities */,
@@ -89,6 +103,8 @@
 			isa = PBXGroup;
 			children = (
 				39A4D63827CA5AA100D28228 /* ArrayAddition.metal */,
+				39A4D65827CC200100D28228 /* MatrixMultiplication.metal */,
+				393947A427DA68E30010902D /* Scan.metal */,
 			);
 			path = Metal;
 			sourceTree = "<group>";
@@ -100,6 +116,19 @@
 				39A4D64A27CBB5D500D28228 /* DemoUtilities.m */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		39A4D65127CBE60E00D28228 /* ObjC */ = {
+			isa = PBXGroup;
+			children = (
+				39A4D65227CBE62500D28228 /* ArrayAddition.h */,
+				39A4D65327CBE62F00D28228 /* ArrayAddition.m */,
+				39A4D65527CBE8D900D28228 /* MatrixMultiplication.h */,
+				39A4D65627CBE8E300D28228 /* MatrixMultiplication.m */,
+				393947A127DA67560010902D /* Scan.h */,
+				393947A227DA67660010902D /* Scan.m */,
+			);
+			path = ObjC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -170,10 +199,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				393947A527DA68E30010902D /* Scan.metal in Sources */,
 				39A4D63C27CB83FC00D28228 /* GPUExecutor.m in Sources */,
 				39A4D63027CA5A1A00D28228 /* main.m in Sources */,
 				39A4D63927CA5AA100D28228 /* ArrayAddition.metal in Sources */,
 				39A4D64B27CBB5D500D28228 /* DemoUtilities.m in Sources */,
+				39A4D65727CBE8E400D28228 /* MatrixMultiplication.m in Sources */,
+				39A4D65927CC200100D28228 /* MatrixMultiplication.metal in Sources */,
+				393947A327DA67660010902D /* Scan.m in Sources */,
+				39A4D65427CBE62F00D28228 /* ArrayAddition.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

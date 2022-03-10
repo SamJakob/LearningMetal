@@ -7,6 +7,11 @@ Practicing GPU compute with Apple Metal.
 (Info.plist and the entitlements file). Info.plist also specifies that the application is an agent to hide the Dock icon as it is
 launching.
 
+- Naturally, see/modify [`main.m`](./LearningMetal/main.m) to specify which code should be executed.
+
+### [ObjC/](./LearningMetal/ObjC)
+The `.h`/`.m` Objective-C files containing the CPU code necessary to launch and execute the GPU kernel.
+
 ### [Metal/](./LearningMetal/Metal)
 The `.metal` shader files containing code to be executed on the GPU.
 
